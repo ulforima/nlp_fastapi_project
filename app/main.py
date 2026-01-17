@@ -2,7 +2,8 @@ from fastapi import FastAPI
 from app.nlp.bow import bag_of_words
 from app.nlp.tfidf import tf_idf
 from app.nlp.nltk_tools import process_text #наш файл (nltk_tools.py), содержащий вспомогательные функции, путь к нему
-#конкретная функция или класс внутри этого файла, ПОМЕНЯТЬ ЕСЛИ НАДО ИЛИ ПУСТЬ КСЮША СДЕЛАЕТ ТАМ ТАКОЕ НАЗВАНИЕ
+#конкретная функция или класс внутри этого файла
+from app.nlp.word2vec import word2vec_analysis
 app = FastAPI(title="NLP Microservice") 
 # создание экземпляра приложения: создает экземпляр класса фаст апи и присваивает его переменной апп
 # это основная точка взаимодействия для настройки всего апи
@@ -49,6 +50,13 @@ def tfidf_endpoint(data: dict):
 def nltk_endpoint(data: dict):
     text = data["text"]
     return process_text(text)
+
+@app.post("/word2vec")
+def word2vec_endpoint(data: dict):
+    texts = data["texts"]
+    method = data.get("method", "tfidf")  # По умолчанию используем tfidf
+    return word2vec_analysis(texts, method=method)
+
 
 # Почему это удобно?
 # не нужно создавать разные серверы для разных задач. просто создаем разные пути (маршруты (эндпоинты)):

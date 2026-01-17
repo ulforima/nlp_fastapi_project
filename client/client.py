@@ -83,6 +83,11 @@ def main():
     if nltk_result is not None:
         results["text_nltk"] = nltk_result
 
+    # Word2Vec с разными методами
+    word2vec_results = send_request("/word2vec", {"texts": texts})
+    if word2vec_results is not None:
+        results["word2vec"] = word2vec_results
+
     # Сохранение результатов (автоматическую генерацию уникального имени для файла с результатами)
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S") # создается «отпечаток времени», чтобы файлы не назывались одинаково
     output_file = f"results_{timestamp}.json"
