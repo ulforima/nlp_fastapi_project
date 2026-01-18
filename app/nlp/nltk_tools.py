@@ -29,21 +29,21 @@ def process_text(text):
     # 2. Токенизация по словам
     word_tokens = word_tokenize(text)
 
-    # 3. Стемминг
+    # 3. Стемминг - процесс нахождения основы слова путем отсечения флексий (окончаний и суффиксов) по определенным правилам
     porter = PorterStemmer()
     snowball = SnowballStemmer("english")
 
     porter_stems = [porter.stem(w) for w in word_tokens]
     snowball_stems = [snowball.stem(w) for w in word_tokens]
 
-    # 4. Лемматизация
+    # 4. Лемматизация - приведение слова к его начальной «словарной» форме, называемой леммой
     lemmatizer = WordNetLemmatizer()
     lemmas = [lemmatizer.lemmatize(w) for w in word_tokens]
 
-    # 5. Part-of-Speech tagging
+    # 5. Part-of-Speech tagging - процесс определения части речи для каждого слова в тексте (существительное, глагол, прилагательное и т.д.) с учетом контекста
     pos_tags = pos_tag(word_tokens)
 
-    # 6. Named Entity Recognition
+    # 6. Named Entity Recognition - процесс автоматического поиска и классификации ключевых сущностей в тексте
     ner_tree = ne_chunk(pos_tags)
 
     return {

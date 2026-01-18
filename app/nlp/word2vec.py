@@ -56,10 +56,9 @@ def bag_of_words(texts):
 def word2vec_analysis(texts, method="tfidf"):
     """
     Сравнение TF-IDF и Bag of Words
-    (название сохранено, хотя это НЕ настоящий word2vec)
-    """
 
-    # ---------- защита ----------
+    """
+    
     if not texts:
         return {"error": "Список текстов пуст"}
 
@@ -70,7 +69,7 @@ def word2vec_analysis(texts, method="tfidf"):
 
     N = len(texts)
 
-    # ---------- вычисления ----------
+    
     tfidf_result = tf_idf(texts)
     bow_result = bag_of_words(texts)
 
@@ -80,7 +79,7 @@ def word2vec_analysis(texts, method="tfidf"):
     tfidf_array = np.array(tfidf_result["tfidf_matrix"])
     bow_array = np.array(bow_result["bow_matrix"])
 
-    # ---------- топ-слова ----------
+    # топ-слова
     if vocab_tfidf and tfidf_array.shape[0] > 0:
         tfidf_first_doc = tfidf_array[0]
         nz = np.nonzero(tfidf_first_doc)[0]
@@ -91,7 +90,7 @@ def word2vec_analysis(texts, method="tfidf"):
         nz = np.nonzero(bow_first_doc)[0]
         bow_top_indices = nz[np.argsort(bow_first_doc[nz])[::-1]][:10]
 
-    # ---------- основной результат ----------
+    # основной результат
     if method == "tfidf":
         vectors = tfidf_array.tolist()
         vocabulary = vocab_tfidf
@@ -110,8 +109,7 @@ def word2vec_analysis(texts, method="tfidf"):
 
     else:
         return {"error": "method должен быть 'tfidf' или 'bow'"}
-
-    # ---------- итог ----------
+    
     return {
         "main_result": {
             "method": method,

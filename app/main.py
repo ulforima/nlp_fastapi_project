@@ -19,6 +19,7 @@ def root():
             "/bag-of-words",
             "/tf-idf",
             "/text_nltk"
+            "/word2vec"
         ]
     }
 # определяет функцию, которая будет вызываться при обращении к этому маршруту. 
@@ -63,6 +64,7 @@ def word2vec_endpoint(data: dict):
 # /bag-of-words — для векторизации.
 # /tf-idf — для оценки важности слов.
 # /text_nltk — для очистки текста.
+# /word2vec - для сравнения.
 
 
 

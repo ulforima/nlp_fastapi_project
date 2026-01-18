@@ -2,14 +2,9 @@ import numpy as np
 import math
 
 def tf_idf(texts):
-    """
-    Вычисление TF-IDF для списка текстов
-    Возвращает словарь с результатами
-    """
-    # Токенизация
+
     docs = [text.lower().split() for text in texts]
-    
-    # Построение словаря
+
     vocab = []
     for doc in docs:
         for word in doc:             
