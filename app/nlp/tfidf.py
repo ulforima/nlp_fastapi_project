@@ -14,20 +14,20 @@ def tf_idf(texts):
     N = len(docs)
     V = len(vocab)
     
-    # TF матрица
+    # TF
     tf_matrix = np.zeros((N, V))
     for i, doc in enumerate(docs):
         words = doc
         words_count = len(words)
         if words_count == 0:
             continue
-        # Используем set для оптимизации
+
         for word in set(words):
             j = vocab.index(word)
             tf_value = words.count(word) / words_count
             tf_matrix[i, j] = tf_value
     
-    # DF вектор
+    # DF
     df_vector = np.zeros(V)
     for j, word in enumerate(vocab):
         count = 0
@@ -36,19 +36,19 @@ def tf_idf(texts):
                 count += 1
         df_vector[j] = count
     
-    # IDF вектор
+    # IDF
     idf_vector = np.zeros(V)
     for j in range(V):
         n = df_vector[j]
         idf_vector[j] = math.log10(N / n) if n > 0 else 0
     
-    # TF-IDF матрица
+    # TF-IDF
     tfidf_matrix = np.zeros((N, V))
     for i in range(N):
         for j in range(V):
             tfidf_matrix[i, j] = tf_matrix[i, j] * idf_vector[j]
     
-    # Преобразуем numpy массивы в списки для JSON сериализации
+    # numpy массивы в списки для JSON
     return {
         "vocabulary": vocab,
         "tf_matrix": tf_matrix.tolist(),
